@@ -13,7 +13,7 @@ import (
 
 const defaultBaseURL = "https://logkeeper2.build.10gen.cc"
 
-// LogkeeperClient is a simple API client for the Logkeeper HTTP read methods.
+// LogkeeperClient is a simple read-only API client for the Logkeeper service.
 type LogkeeperClient struct {
 	baseURL    string
 	httpClient *http.Client
