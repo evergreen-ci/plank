@@ -1,6 +1,6 @@
 package plank
 
-// Build is the API response model representing metadata of a Logkeeper build.
+// Build is the API model representing metadata of a Logkeeper build.
 type Build struct {
 	ID            string `json:"id"`
 	Builder       string `json:"builder"`
@@ -10,7 +10,7 @@ type Build struct {
 	Tests         []Test `json:"tests"`
 }
 
-// Test is the API response model representing metadata of a Logkeeper test.
+// Test is the API model representing metadata of a Logkeeper test.
 type Test struct {
 	ID            string `json:"id"`
 	Name          string `json:"name"`
