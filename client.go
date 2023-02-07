@@ -55,8 +55,8 @@ func (c *LogkeeperClient) GetBuildMetadata(ctx context.Context, buildID string) 
 	}
 
 	var build Build
-	if err := unmarshalResponseBody(resp.Body, &build); err != nil {
-		return Build{}, err
+	if err := json.NewDecoder(resp.Body).Decode(&build); err != nil {
+		return Build{}, errors.Wrap(err, "decoding JSON response")
 	}
 
 	return build, nil
@@ -75,8 +75,8 @@ func (c *LogkeeperClient) GetTestMetadata(ctx context.Context, buildID, testID s
 	}
 
 	var test Test
-	if err := unmarshalResponseBody(resp.Body, &test); err != nil {
-		return Test{}, err
+	if err := json.NewDecoder(resp.Body).Decode(&test); err != nil {
+		return Test{}, errors.Wrap(err, "decoding JSON response")
 	}
 
 	return test, nil
@@ -131,13 +131,4 @@ func (c *LogkeeperClient) get(ctx context.Context, url string) (*http.Response, 
 	}
 
 	return resp, nil
-}
-
-func unmarshalResponseBody(body io.ReadCloser, out interface{}) error {
-	data, err := io.ReadAll(body)
-	if err != nil {
-		return errors.Wrap(err, "reading response body")
-	}
-
-	return errors.Wrap(json.Unmarshal(data, out), "unmarshalling JSON response")
 }
